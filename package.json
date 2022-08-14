@@ -4,7 +4,9 @@
   "description": "Get your Dota2 account information using discord bot",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gaben": "nodemon main.js",
+    "remove-commands": "node ./commands/remove.js",
+    "deploy-commands": "node ./commands/deploy.js"
   },
   "keywords": [
     "discord",
@@ -15,7 +17,11 @@
   "author": "kharl112",
   "license": "MIT",
   "dependencies": {
+    "@discordjs/rest": "^1.0.1",
     "discord.js": "^14.2.0",
     "dotenv": "^16.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
