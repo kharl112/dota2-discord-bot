@@ -15,6 +15,7 @@
   "author": "kharl112",
   "license": "MIT",
   "dependencies": {
+    "discord.js": "^14.2.0",
     "dotenv": "^16.0.1"
   }
 }
