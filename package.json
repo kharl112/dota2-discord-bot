@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "gaben": "nodemon main.js",
-    "remove-commands": "node ./commands/remove.js",
-    "deploy-commands": "node ./commands/deploy.js"
+    "remove-commands": "node ./command-builders/handlers/remove.js",
+    "deploy-commands": "node ./command-builders/handlers/deploy.js"
   },
   "keywords": [
     "discord",
