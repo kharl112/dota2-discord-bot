@@ -1,0 +1,17 @@
+{
+  "name": "dota2-discord-bot",
+  "version": "0.0.1",
+  "description": "Get your Dota2 account information using discord bot",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "dota2",
+    "steam"
+  ],
+  "author": "kharl112",
+  "license": "MIT"
+}
