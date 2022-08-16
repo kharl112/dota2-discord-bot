@@ -13,7 +13,7 @@ const commands = [];
 //get the full path of the commands directory
 const commandsPath = path.join(__dirname, "../commands");
 
-//get all the .js file from the commandsPath 
+//get all the .js file from the commandsPath
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
@@ -21,14 +21,17 @@ const commandFiles = fs
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
   const command = require(filePath);
-  //append commands from commands.js 
-  commands.push(command.data.toJSON());
+
+  //append commands from commands.js
+  command.forEach((cmd) => {
+    commands.push(cmd.data);
+  });
 }
 
 //register all commands
 rest
   .put(Routes.applicationCommands(process.env.DISCORD_CLIENT_ID), {
-    body: commands,
+    body: [...commands],
   })
   .then(() => console.log("Successfully registered application commands."))
   .catch(console.error);
