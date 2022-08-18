@@ -10,8 +10,8 @@ module.exports = (() => {
   ];
 
   const getStatus = (status) => {
-    if (!status) return "offline";
-    if (!/\d/g.test(status)) return "offline";
+    if (!status) return "Offline";
+    if (!/\d/g.test(status)) return "Offline";
 
     return status_array[status];
   };

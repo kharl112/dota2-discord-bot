@@ -65,7 +65,7 @@ module.exports = [
 
         // inside a command, event listener, etc.
         const player_embed = new EmbedBuilder()
-          .setColor(player.profilestate ? 0x1ccc17 : 0x8b8b8b)
+          .setColor(player.personastate ? 0x1ccc17 : 0x8b8b8b)
           .setTitle(player.personaname)
           .setDescription(
             player.gameextrainfo
@@ -81,7 +81,7 @@ module.exports = [
           .addFields(
             {
               name: "Status",
-              value: Status.getStatus(player.profilestate),
+              value: Status.getStatus(player.personastate),
               inline: true,
             },
             {
