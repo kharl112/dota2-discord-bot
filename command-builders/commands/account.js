@@ -6,12 +6,18 @@ const AccountController = require("../controllers/account");
 //commmands
 module.exports = [
   {
-    // news
+    // active live games
     data: new SlashCommandBuilder()
-      .setName("news")
-      .setDescription("Get the latest news from valve dota2"),
+      .setName("live")
+      .setDescription("Get the latest live league games from dota2")
+      .addStringOption((option) =>
+        option
+          .setName(AccountController.constants.SEARCH_LIVE)
+          .setDescription("search for in-game teams")
+          .setRequired(true)
+      ),
     async execute(interaction) {
-      await interaction.reply("News");
+      await AccountController.live(interaction);
     },
   },
   {
