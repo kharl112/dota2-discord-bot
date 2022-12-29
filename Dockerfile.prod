@@ -1,0 +1,14 @@
+FROM node:16.17.0-bullseye-slim
+
+ENV NODE_ENV production
+
+WORKDIR /home/dota2-discord-bot/
+
+COPY package*.json ./
+COPY . .
+
+RUN npm ci --only=production
+
+EXPOSE 5000
+
+CMD ["node", "main.js"]
