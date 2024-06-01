@@ -21,7 +21,8 @@
     "@discordjs/rest": "^1.0.1",
     "axios": "^0.27.2",
     "discord.js": "^14.2.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "node-cache": "^5.1.2"
   },
   "devDependencies": {
     "jest": "^28.1.3",

@@ -2,10 +2,11 @@ const axios = require("axios");
 const { EmbedBuilder } = require("discord.js");
 
 //helpers
-const Status = require("../../helpers/account_status");
 const SEARCH_PLAYER = "search_player";
 
 require('dotenv').config({path: '../../.env' });
+
+const Dota2 = require("../../helpers/dota2");
 
 module.exports = (() => {
   const search_player = async (interaction) => {
@@ -30,16 +31,39 @@ module.exports = (() => {
         const player = request.data[0];
 
         const player_embed = new EmbedBuilder()
-          .setColor(0x1ccc17)
+          .setColor(0x8b8b8b)
           .setTitle(player.personaname)
-          .setThumbnail(player.avatarfull)
-          .addFields(
-            {
-              name: "Last Match",
-              value:  new Date(player.last_match_time).toLocaleString("en-us", { dateStyle: "medium" }),
-              inline: true,
+          .setThumbnail(player.avatarfull);
+          
+
+        //recent match
+        const recent_matches = await axios.get(`${process.env.OPEN_DOTA_URL}/players/${player.account_id}/matches?limit=1&sort=1`);
+
+        if(recent_matches.data[0]){
+            const recent_match = recent_matches.data[0];
+            const heroes = await Dota2.get_heroes();      
+
+            if(heroes[recent_match.hero_id]){
+              const hero = heroes[recent_match.hero_id];
+              player_embed.addFields(
+                {
+                  name: "Last match Info:",
+                  value:  `Played as: ${hero.localized_name}`,
+                  inline: false,
+                },
+                {
+                  name: "KDA",
+                  value:  `${recent_match.kills}/${recent_match.deaths}/${recent_match.assists}`,
+                  inline: true,
+                },
+                {
+                  name: "Duration",
+                  value:  `${Math.round(recent_match.duration / 60)} minutes`,
+                  inline: true,
+                },
+              ).setFooter({ text: `MATCH ID: ${recent_match.match_id.toString()}`, iconURL: 'https://seeklogo.com/images/D/dota-2-logo-A8CAC9B4C9-seeklogo.com.png' });
             }
-          );
+        }
 
         await interaction.editReply({ embeds: [player_embed] });
       }catch(error){
