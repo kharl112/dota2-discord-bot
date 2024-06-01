@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Routes } = require("discord.js");
 const { REST } = require("@discordjs/rest");
-require("dotenv").config();
+require("dotenv").config( { path: '../../.env' } )
 
 const rest = new REST({ version: "10" }).setToken(
   process.env.DISCORD_BOT_TOKEN
