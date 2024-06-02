@@ -23,5 +23,24 @@ module.exports = (() => {
     }
   };
 
-  return { get_heroes };
+  const get_items = async() => {
+    try {
+     const key = 'all_items';
+     if(dotaCache.get(key)) return dotaCache.get(key);
+
+     const request = await axios.get(`${process.env.OPEN_DOTA_URL2}/items.json`);
+     if (!request.data) throw 'No results found';
+
+     dotaCache.set(key, request.data, 60000);
+
+     return request.data;
+    }catch(error) {
+      console.log(error)
+      return null;
+    }
+  };
+
+
+
+  return { get_heroes, get_items };
 })();
