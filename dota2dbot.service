@@ -1,0 +1,10 @@
+[Unit]
+Description=Dota2  bot for discord
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /apps/dota2-discord-bot/main.js
+WorkingDirectory=/apps/ddmbot
+
+[Install]
+WantedBy=multi-user.target
