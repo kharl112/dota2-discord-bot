@@ -41,7 +41,18 @@ module.exports = (() => {
     }
   };
 
+  const get_news = async() => {
+    try {
+      const request = await axios.get(`${process.env.STEAM_NEWS_DOTA}/&count=1&maxlength=300&format=json`);
+
+      return request.data;
+    }catch(error) {
+      console.log(error)
+      return null;
+    }
+  }
 
 
-  return { get_heroes, get_items };
+
+  return { get_heroes, get_items, get_news };
 })();
