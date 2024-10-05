@@ -25,15 +25,16 @@ module.exports = (() => {
 
   const get_items = async() => {
     try {
-     const key = 'all_items';
-     if(dotaCache.get(key)) return dotaCache.get(key);
+      const key = 'all_items';
+      if(dotaCache.get(key)) return dotaCache.get(key);
 
-     const request = await axios.get(`${process.env.OPEN_DOTA_URL2}/items.json`);
-     if (!request.data) throw 'No results found';
+      const request = await axios.get(`${process.env.OPEN_DOTA_URL2}/items.json`);
+      if (!request.data) throw 'No results found';
 
-     dotaCache.set(key, request.data, 60000);
+      const data = Object.values(request.data);
+      dotaCache.set(key, data, 60000);
 
-     return request.data;
+      return data;
     }catch(error) {
       console.log(error)
       return null;

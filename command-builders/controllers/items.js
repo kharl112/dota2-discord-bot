@@ -27,19 +27,20 @@ module.exports = (() => {
         if(!items) throw 'This command is not available at the moment.';
 
         const item = items.filter((item) => {
-          if(!item.localized_name) return false;
-          if(item.localized_name.toLowerCase().includes('recipe')) return false;
-          return item.localized_name.toLowerCase().includes(search_input.value.toLowerCase());
+          if(!item.dname) return false;
+          if(item.dname.toLowerCase().includes('recipe')) return false;
+          return item.dname.toLowerCase().includes(search_input.value.toLowerCase());
         });
+
         
         if(!item[0]) throw 'No results found.';
 
         const _item = item[0];
         const item_embed = new EmbedBuilder()
           .setColor(0x8b8b8b)
-          .setTitle(_item.localized_name)
-          .setDescription(_item.description ? _item.description : _item.lore)
-          .setThumbnail(`${process.env.OPEN_DOTA_URL2_ASSETS}/vpk/${_item.icon}`)
+          .setTitle(_item.dname)
+          .setDescription(_item.notes ? _item.notes : _item.lore)
+          //.setThumbnail(`${process.env.OPEN_DOTA_URL2_ASSETS}/vpk/${_item.icon}`)
           .addFields(
                 {
                   name: "Cost",
@@ -50,27 +51,28 @@ module.exports = (() => {
 
         
         //theres no cd on some items
-        if(_item.cooldown){
+        if(_item.cd){
           item_embed.addFields(
-              {
-                name: "Cooldown",
-                value:  _item.cooldown + 's',
-                inline: true,
-              }
+            {
+              name: "Cooldown",
+              value:  _item.cd + 's',
+              inline: true,
+            }
           );
         }
 
 
         //ability spec [ Obj<key, value> ]
-        _item.ability_special.forEach((spec) => {
+        _item.attrib.forEach((spec) => {
           item_embed.addFields(
             {
               name: spec.key.replaceAll('_', ' '),
-              value:  spec.value,
+              value:  spec.display ? spec.display.replace("{value}",spec.value) : spec.value,
               inline: true,
             },
           );
         });
+
 
         await interaction.editReply({ embeds: [item_embed] });
       }catch(error){
