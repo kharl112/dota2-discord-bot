@@ -1,4 +1,3 @@
-const axios = require("axios");
 const { EmbedBuilder } = require("discord.js");
 
 require('dotenv').config({path: '../../.env' });
