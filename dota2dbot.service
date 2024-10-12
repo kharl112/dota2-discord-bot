@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 ExecStart=/usr/bin/node /apps/dota2-discord-bot/main.js
-WorkingDirectory=/apps/ddmbot
+WorkingDirectory=/apps/dota2-discord-bot
 
 [Install]
 WantedBy=multi-user.target
