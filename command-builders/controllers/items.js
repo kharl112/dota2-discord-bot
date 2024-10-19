@@ -40,7 +40,7 @@ module.exports = (() => {
           .setColor(0x8b8b8b)
           .setTitle(_item.dname)
           .setDescription(_item.notes ? _item.notes : _item.lore)
-          //.setThumbnail(`${process.env.OPEN_DOTA_URL2_ASSETS}/vpk/${_item.icon}`)
+          .setThumbnail(`https://cdn.cloudflare.steamstatic.com/${_item.img}`)
           .addFields(
                 {
                   name: "Cost",
