@@ -28,12 +28,7 @@ module.exports = (() => {
 
       //create file if it does not exitst
       if(!fs.existsSync(file_path)) {
-        fs.writeFile(file_path, 'this is a empty file', 'utf8', (error) => {
-          if(error) {
-            console.error(`Error creating the file: ${file_path}`, err);
-            return;
-          }
-        });
+        fs.writeFileSync(file_path, 'this is a empty file', 'utf8');
       }
 
 
@@ -55,10 +50,14 @@ module.exports = (() => {
           .setTimestamp(news_first.date * 1000);
 
         await message.reply({ embeds: [news_embed]  });
+        return true;
       }
+
+      return false;
 
     }catch(error) {
       console.log(error)
+      return false;
     }
   }
 

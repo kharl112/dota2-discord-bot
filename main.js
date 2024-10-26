@@ -2,6 +2,7 @@ const { Client, GatewayIntentBits, Collection, Intents } = require("discord.js")
 const initializeCommands = require("./command-builders/handlers/initialize");
 const initializeEvents = require("./event-handlers/handlers/initialize");
 const { latest_news } = require("./command-builders/non-slash-commands/news.js");
+const { latest_post } = require("./command-builders/non-slash-commands/reddit.js");
 
 require("dotenv").config();
 
@@ -17,7 +18,14 @@ initializeCommands(client);
 
 //for non slash commands
 client.on("messageCreate", (message) => {
-  latest_news(message);
+  let alreadSentMessage = false;
+  alreadySentMessage = latest_news(message);
+
+  if(!alreadSentMessage) {
+    alreadySentMessage = latest_post(message);
+  }
+
+
 });
 
 
