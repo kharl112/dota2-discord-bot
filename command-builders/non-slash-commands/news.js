@@ -49,7 +49,7 @@ module.exports = (() => {
           .setURL(news_first.url)
           .setTimestamp(news_first.date * 1000);
 
-        await message.reply({ embeds: [news_embed]  });
+        await message.channel.send({ embeds: [news_embed]  });
         return true;
       }
 

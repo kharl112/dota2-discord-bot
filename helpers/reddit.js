@@ -33,9 +33,9 @@ module.exports = (() => {
     }
   }  
 
-  const get_latest_post = async (token, subreddit = 'DotA2') => {
+  const get_latest_hot_post = async (token, subreddit = 'DotA2') => {
     try {
-      const response = await axios.get(`https://oauth.reddit.com/r/${subreddit}/new`, {
+      const response = await axios.get(`https://oauth.reddit.com/r/${subreddit}/hot`, {
         headers: { Authorization: `Bearer ${token}`, 'User-Agent': USERAGENT },
         params: { limit: 1 }
       });
@@ -47,7 +47,7 @@ module.exports = (() => {
     }
   }
 
-  return { get_access_token, get_latest_post };
+  return { get_access_token, get_latest_hot_post };
 })();
 
 
