@@ -46,9 +46,12 @@ module.exports = (() => {
       const post_embed = new EmbedBuilder()
         .setColor(0x8b8b8b)
         .setTitle(post.title)
-        .setDescription(post.selftext)
         .setURL(post.url)
         .setTimestamp(post.created_utc * 1000);
+
+      if(post.selftext) {
+        post_embed.setDescription(post.selftext)
+      }
 
       await message.channel.send({ embeds: [post_embed]  });
 
