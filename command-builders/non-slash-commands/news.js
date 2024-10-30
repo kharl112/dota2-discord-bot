@@ -14,13 +14,20 @@ module.exports = (() => {
       //get the latest news
       const news = await Dota2.get_news();      
 
+      if(!news) {
+        console.log(`No results found from: non-slash-commands/latest_news`);
+        return false;
+      }
+
       //validations
       if(!news.appnews) {
         console.log(`No results found from: non-slash-commands/latest_news`);
+        return false;
       }
 
       if(!news.appnews.newsitems.length) {
         console.log(`No results found from: non-slash-commands/latest_news`);
+        return false;
       }
 
       //get the top from the list
