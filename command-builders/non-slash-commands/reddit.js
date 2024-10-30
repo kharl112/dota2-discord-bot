@@ -53,8 +53,18 @@ module.exports = (() => {
         post_embed.setDescription(post.selftext)
       }
 
-      await message.channel.send({ embeds: [post_embed]  });
+      // get the "updates" channel and send the updates there
+      const channels = [...message.guild.channels.cache.values()];
+      const textChannels = channels.filter((channel) => channel.type == 0);
+      const updateChannels = channels.filter((channel) => channel.name.toLowerCase().includes('updates'));
 
+      if(updateChannels.length) {
+        await updateChannels[0].send({ embeds: [post_embed] });
+        return true;
+      }
+
+      //otherwise send it to the current channel
+      await message.channel.send({ embeds: [post_embed]  });
       return true;
     }
 
