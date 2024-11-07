@@ -56,16 +56,10 @@ module.exports = (() => {
       //limit to 10
       bugs.splice(10);
 
-      const fields = bugs.map(({ data }) => ({ name: data.title, value: (data.selftext || "No description").concat('\n \n') }));
+      const content = bugs.reduce((init, { data }) => `${init} \n - **[${data.title}](${data.url})** [${new Date(data.created_utc * 1000).toDateString()}] 
+        \n ${data.selftext.replaceAll('\n', '') .replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')} \n `, '');
 
-      const news_embed = new EmbedBuilder()
-        .setColor(0xFF0000)
-        .setTitle('Bugs Reported from subreddit r/Dota2')
-        .setDescription('latest bugs posted from r/Dota2')
-        .setFields(fields)
-        .setURL('https://www.reddit.com/r/DotA2/');
-
-      await interaction.editReply({ embeds: [news_embed]  });
+      await interaction.editReply({ content, embeds: []  });
     }catch(error) {
       console.log(error)
       await interaction.editReply({ content: error.toString(), ephemeral: true });
