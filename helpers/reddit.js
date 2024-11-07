@@ -33,7 +33,7 @@ module.exports = (() => {
     }
   }  
 
-  const get_latest_hot_post = async (token, subreddit = 'DotA2') => {
+  const get_latest_hot_post = async (token, subreddit = 'Dota2') => {
     try {
       const response = await axios.get(`https://oauth.reddit.com/r/${subreddit}/hot`, {
         headers: { Authorization: `Bearer ${token}`, 'User-Agent': USERAGENT },
@@ -47,7 +47,21 @@ module.exports = (() => {
     }
   }
 
-  return { get_access_token, get_latest_hot_post };
+  const get_latest_bugs = async (token, subreddit = 'Dota2') => {
+    try {
+      const response = await axios.get(`https://oauth.reddit.com/r/${subreddit}/new`, {
+        headers: { Authorization: `Bearer ${token}`, 'User-Agent': USERAGENT },
+        params: { limit: 100 }
+      });
+
+      return response.data.data.children.filter((item) => item.data.link_flair_text == 'Bug');
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  return { get_access_token, get_latest_hot_post, get_latest_bugs };
 })();
 
 
