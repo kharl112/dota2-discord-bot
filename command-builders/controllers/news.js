@@ -53,11 +53,19 @@ module.exports = (() => {
         await interaction.editReply({ content: "No updates found.", ephemeral: true });
       }
 
-      //limit to 10
-      bugs.splice(10);
+      //limit to 5 
+      bugs.splice(5);
 
-      const content = bugs.reduce((init, { data }) => `${init} \n - **[${data.title}](${data.url})** [${new Date(data.created_utc * 1000).toDateString()}] 
-        \n ${data.selftext.replaceAll('\n', '') .replace(/(?:https?|ftp):\/\/[\n\S]+/g, '')} \n `, '');
+      const content = bugs.reduce((init, { data }) => {
+        const title = `- **[${data.title}](${data.url})** [${new Date(data.created_utc * 1000).toDateString()}]`; 
+
+        let description = data.selftext.replaceAll('\n', '').replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+        if(description.length > 100) {
+          description = description.slice(0,100).concat('...');
+        }
+
+        return `${init} \n ${title} \n ${description} \n ` 
+      }, '');
 
       await interaction.editReply({ content, embeds: []  });
     }catch(error) {
