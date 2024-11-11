@@ -50,7 +50,8 @@ module.exports = (() => {
         .setTimestamp(post.created_utc * 1000);
 
       if(post.selftext) {
-        post_embed.setDescription(post.selftext)
+        const description = post.selftext.length > 100 ? post.selftext.slice(0,100).concat('...') : post.selftext;
+        post_embed.setDescription(description)
       }
 
       // get the "updates" channel and send the updates there
