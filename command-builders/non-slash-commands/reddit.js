@@ -54,6 +54,11 @@ module.exports = (() => {
         post_embed.setDescription(description)
       }
 
+      //render the image if url is image
+      if(['png', 'gif', 'webp', 'jpg', 'jpeg'].some((ext) => post.url.endsWith(ext))) {
+        post_embed.setImage(post.url);
+      }
+
       // get the "updates" channel and send the updates there
       const channels = [...message.guild.channels.cache.values()];
       const textChannels = channels.filter((channel) => channel.type == 0);
